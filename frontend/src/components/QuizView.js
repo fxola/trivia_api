@@ -36,6 +36,7 @@ class QuizView extends Component {
   }
 
   selectCategory = ({ type, id = 0 }) => {
+    console.log(id);
     this.setState({ quizCategory: { type, id } }, this.getNextQuestion);
   };
 
@@ -48,7 +49,7 @@ class QuizView extends Component {
     if (this.state.currentQuestion.id) {
       previousQuestions.push(this.state.currentQuestion.id);
     }
-
+    // console.log(previousQuestions);
     $.ajax({
       url: "/quizzes", //TODO: update request URL
       type: "POST",
@@ -114,8 +115,8 @@ class QuizView extends Component {
           {this.state.categories.map(category => {
             return (
               <div
-                key={category}
-                value={category}
+                key={category.id}
+                value={category.id}
                 className="play-category"
                 onClick={() =>
                   this.selectCategory({ type: category.type, id: category.id })
